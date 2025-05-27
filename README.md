@@ -1,4 +1,5 @@
 # AUDITLOGGER
+A simple tool for command audit.
 
 ## TEAM MEMBERS
 - Dumar Hernán Malpica Lara 
