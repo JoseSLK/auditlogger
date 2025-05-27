@@ -1,12 +1,12 @@
 # AUDITLOGGER
 
-# TEAM MEMBERS
+## TEAM MEMBERS
 - Dumar Hernán Malpica Lara 
 - Jose Luis Salamanca López
 - Nicolas Sarmiento Vargas
 - Nicolas Samuel Tinjaca Topia
 
-# USAGE
+## USAGE
 Run this command:
 ```
 bash main.sh
