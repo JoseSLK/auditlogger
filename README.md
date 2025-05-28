@@ -18,7 +18,7 @@ docker run -p 5000:22 --name audit_server --hostname audit_server -d auditlogger
 ```
 Get in the container:
 ```
-docker exec -it audit_server bash``
+docker exec -it audit_server bash
 ```
 Runt the script to create users:
 ```
