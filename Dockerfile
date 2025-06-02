@@ -13,17 +13,20 @@ RUN groupadd auditlog && \
 COPY frequent_errors.sh /etc/profile.d/frequent_errors.sh
 COPY analysis_frecuent_errors.sh /usr/local/bin/analysis_frecuent_errors.sh
 COPY frequency_commands.sh /usr/local/bin/frequency_commands.sh
-COPY analysis_frequency_commands.sh /usr/local/bin/analyze_frequency.sh
+COPY analysis_frequency_commands.sh /usr/local/bin/analysis_frequency_commands.sh
+COPY frequency_risky_commands.sh /usr/local/bin/frequency_risky_commands.sh
 COPY main.sh /usr/local/bin/main.sh
 COPY users.sh /usr/local/bin/users.sh 
 
 RUN chmod +x /usr/local/bin/users.sh 
-RUN chmod +x /etc/profile.d/frequent_errors.sh && \
+RUN chmod +x /usr/local/bin/frequency_risky_commands.sh && \
+    chmod +x /usr/local/bin/users.sh && \
+    chmod +x /etc/profile.d/frequent_errors.sh && \
     chown root:root /etc/profile.d/frequent_errors.sh && \
     chmod +x /usr/local/bin/analysis_frecuent_errors.sh && \
     chmod +x /usr/local/bin/main.sh && \
     chmod +x /usr/local/bin/frequency_commands.sh && \
-    chmod +x /usr/local/bin/analysis_frequency_commands.sh
+    chmod +x /usr/local/bin/analysis_frequency_commands.sh && \
     echo '%auditlog ALL=(ALL) NOPASSWD: /usr/bin/tee' >> /etc/sudoers
 
 RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
