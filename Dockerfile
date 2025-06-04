@@ -15,7 +15,6 @@ RUN mkdir /var/run/sshd
 COPY setup/ /usr/local/bin/
 COPY src/ /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/initlogger.sh
 
 # COPY analysis_frecuent_errors.sh /usr/local/bin/analysis_frecuent_errors.sh
 # COPY frequency_commands.sh /usr/local/bin/frequency_commands.sh

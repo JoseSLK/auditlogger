@@ -6,4 +6,4 @@ build:
 
 run:
 	docker run -p 5000:22 --name audit_server --hostname audit_server -d auditlogger
-	docker exec -it audit_server bash
+	docker exec audit_server /bin/bash /usr/local/bin/initlogger.sh
