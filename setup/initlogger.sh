@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /usr/local/bin/permissions.sh
+
 LOG_GROUP="auditlog"
 
 for user in muskan anjali siddharth vanya svetlana vitaly vladimir;do 
