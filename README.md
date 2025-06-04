@@ -7,7 +7,23 @@ A simple tool for command audit.
 - Nicolas Sarmiento Vargas
 - Nicolas Samuel Tinjaca Topia
 
+## System Requirements
+- Docker >= 28.2.1
+- Make  >= 4.3  (optional)
+
+
 ## Server Setup
+If you have make just run the following commands:
+```
+make build
+```
+and then:
+```
+make run
+```
+Then you can skip to [Usage](#usage)
+If you don't have Make, follow the following commands
+
 Create Docker Image
 ```
 docker build -t auditlogger .
