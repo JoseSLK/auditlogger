@@ -34,4 +34,4 @@ generate_risky_command_report() {
 }
 
 # Ejecutar la función (puedes pasar un usuario, si no usa $USER)
-generate_risky_command_report
+# generate_risky_command_report
