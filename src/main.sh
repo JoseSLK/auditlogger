@@ -8,7 +8,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-
+PATH_TO_LOGS="/var/log/audit/report"
 source /usr/local/bin/auditlogger/src/menu/menu.sh
 
 function help_note {
@@ -44,7 +44,8 @@ while true; do
             if [[ ${hist_sel} == "All" ]]; then
                 history_log
             elif [[ ${hist_sel} != "Go Back" ]]; then 
-                echo "[*] User history loaded in /var/log/audit/users/${hist_sel}.log"
+                echo "[*] User history loaded in ${PATH_TO_LOGS}/${hist_sel}.log"
+                cp -f "/var/log/audit/users/${hist_sel}.log"  "${PATH_TO_LOGS}/${hist_sel}.log"
             else 
                :
             fi
@@ -80,7 +81,9 @@ while true; do
             all_general_audit
             ;;   
         "Review Logs")
-            echo "Coming soon!"
+            loc=
+            log=$(gum file ${PATH_TO_LOGS})
+            gum pager < ${log}
             ;;
         "Exit")
             gum confirm && break || :

@@ -34,15 +34,14 @@ function freqency {
     echo "[*] Analyzing Overall Commands. . . "
     ALERT_ALL="/var/log/audit/report/freq_alerts.log"
     command_freq_all
-    generate_freq_report ${FREQ_REPORT} ${ALERT_ALL}
+    generate_report ${FREQ_REPORT} ${ALERT_ALL}
 }
 
 function frequency_by_user {
     user=$1
-    out="/var/log/audit/report/${user}.log"
     out_alert="/var/log/audit/report/${user}_alert.log"
-    command_history_by_user "${user}" "${out}"
-    generate_freq_report ${out} ${out_alert}
+    command_history_by_user "${user}"
+    generate_freq_report ${FREQ_REPORT} ${out_alert}
 }
 
 

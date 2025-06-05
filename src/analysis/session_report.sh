@@ -1,4 +1,4 @@
-function seession_report {
+function session_report {
 
     LOG_FILE=$1
     REPORT_FILE=$2
@@ -53,7 +53,7 @@ function all_session_report {
     tmp=$(mktemp)
     find ${LOG_HISTORY} -maxdepth 1 -type f -name '*_session*' -exec cat {} + > ${tmp} 
     chmod 600 ${tmp}
-    seession_report "$tmp" "$REPORT_FILE"
+    session_report "$tmp" "$REPORT_FILE"
 }
 
 function session_report_by_user {

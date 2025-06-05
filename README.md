@@ -54,5 +54,5 @@ You can use the any user (muskan anjali siddharth vanya svetlana vitaly vladimir
 
 Run this command:
 ```
-bash main.sh
+sudo audit_logger
 ```

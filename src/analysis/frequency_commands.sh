@@ -8,12 +8,10 @@ function clean_commands {
 
 function command_history_by_user {
     local user="$1"
-    OUTPUT_FILE="$2"
-
     tmp=$(mktemp)
     get_command_by_user ${user} ${tmp}
 
-    clean_commands ${tmp} ${OUTPUT_FILE} 
+    clean_commands ${tmp} ${FREQ_REPORT} 
 }
 
 function command_freq_all {
