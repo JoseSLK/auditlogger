@@ -31,6 +31,7 @@ function help_note {
 while true; do
     clear
     header
+    current_session
     options=("History" "Active Sessions" "Command Analysis" "Error Analysis" "All General audit options" "Review Logs" "Exit" "Help")
     selected=$(gum choose --header "Please choose an audit option" --height 15 "${options[@]}")
 
@@ -47,7 +48,7 @@ while true; do
                 echo "[*] User history loaded in ${PATH_TO_LOGS}/${hist_sel}.log"
                 cp -f "/var/log/audit/users/${hist_sel}.log"  "${PATH_TO_LOGS}/${hist_sel}.log"
             else 
-               :
+               continue
             fi
             ;;
         "Active Sessions")
@@ -59,7 +60,7 @@ while true; do
             elif [[ ${hist_sel} != "Go Back" ]]; then 
                 session_by_user ${hist_sel}
             else 
-                :
+                continue
             fi
             ;;
         "Command Analysis")
@@ -71,7 +72,7 @@ while true; do
             elif [[ ${hist_sel} != "Go Back" ]]; then 
                frequency_by_user ${hist_sel}
             else
-                :
+                continue
             fi
             ;;
         "Error Analysis")

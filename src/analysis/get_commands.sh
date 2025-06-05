@@ -1,5 +1,5 @@
 LOG_HISTORY="/var/log/audit/users/"
-CMD_LOG="/var/log/audit/report/cmds.log"
+CMD_LOG="/var/log/audit/aux/cmds.log"
 
 
 function get_all_commands {

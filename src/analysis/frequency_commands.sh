@@ -1,5 +1,5 @@
 source /usr/local/bin/auditlogger/src/analysis/get_commands.sh
-FREQ_REPORT="/var/log/audit/report/frequency.log"
+FREQ_REPORT="/var/log/audit/aux/frequency.log"
 
 
 function clean_commands {

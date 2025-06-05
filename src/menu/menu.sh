@@ -8,6 +8,8 @@ source ${PATH_AUDIT}/frequency_risky_commands.sh
 source ${PATH_AUDIT}/history_report.sh
 source ${PATH_AUDIT}/session_report.sh
 
+tmp_session=$(mktemp)
+
 
 function history_log {
     echo "[*] Generating All Command History. . . "
@@ -34,7 +36,7 @@ function freqency {
     echo "[*] Analyzing Overall Commands. . . "
     ALERT_ALL="/var/log/audit/report/freq_alerts.log"
     command_freq_all
-    generate_report ${FREQ_REPORT} ${ALERT_ALL}
+    generate_freq_report ${FREQ_REPORT} ${ALERT_ALL}
 }
 
 function frequency_by_user {
@@ -63,4 +65,11 @@ function header {
     while IFS= read -r line; do
         printf "%*s%s\n" ${spaces} "" "${line}" 
     done <<< "${title}"
+}
+
+function current_session {
+    session_report_by_user_tmp ${SUDO_USER} ${tmp_session}
+    echo "$SUDO_TTY"
+    session=$(grep "$SUDO_TTY" "$tmp_session" | grep -E '\(?ACTIVE\)?')
+    echo "Current Session Info: ${session}"
 }

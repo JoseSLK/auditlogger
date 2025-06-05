@@ -6,7 +6,9 @@ function session_report {
     declare -A login_time
     declare -A login_user
 
-    echo "Guardando reporte de sesiones en $2"
+    if [[ -z "$3"  ]]; then
+        echo "Saving session log in $2"
+    fi
 
     > "$REPORT_FILE" 
 
@@ -27,7 +29,7 @@ function session_report {
                 start="${login_time[$key]}"
                 end="$timestamp"
                 duration=$(( $(date -d "$end" +%s) - $(date -d "$start" +%s) ))
-                printf "%s | %s | inicio: %s | fin: %s | duración(s): %ds\n" \
+                printf "%s | %s | start: %s | end: %s | duration(s): %ds\n" \
                     "$user" "$tty" "$start" "$end" "$duration" >> "$REPORT_FILE"
                 unset login_time["$key"]
                 unset login_user["$key"]
@@ -41,7 +43,7 @@ function session_report {
         start="${login_time[$key]}"
         end=$(date "+%Y-%m-%d %H:%M:%S")
         duration=$(( $(date -d "$end" +%s) - $(date -d "$start" +%s) ))
-        printf "%s | %s | inicio: %s  (ACTIVA) | duracion(s): %ds\n" \
+        printf "%s | %s | start: %s  (ACTIVE) | duration(s): %ds\n" \
             "$user" "$tty" "$start" "$duration" >> "$REPORT_FILE"
     done
 }
@@ -61,5 +63,12 @@ function session_report_by_user {
     LOG_HISTORY="/var/log/audit/users/${user}_session.log"
     REPORT_FILE="/var/log/audit/report/${user}_sessions.log"
     session_report "${LOG_HISTORY}" "${REPORT_FILE}"
+}
+
+function session_report_by_user_tmp {
+    user=$1
+    tmp=$2
+    LOG_HISTORY="/var/log/audit/users/${user}_session.log"
+    session_report "${LOG_HISTORY}" "${tmp}" "n"
 }
 
