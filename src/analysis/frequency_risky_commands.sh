@@ -5,7 +5,6 @@ generate_risky_command_report() {
     local output_dir="/home/$target_user/logs"
     local output_file="$output_dir/frequency_risky_commands.log"
 
-    # Crear directorio si no existe
     mkdir -p "$output_dir"
 
     local history_file

@@ -38,7 +38,7 @@ docker exec -it audit_server bash
 ```
 Runt the script to create users:
 ```
-/usr/local/bin/users.sh
+bash /usr/local/bin/auditlogger/setup/initlogger.sh
 ```
 Exit the container 
 ```
