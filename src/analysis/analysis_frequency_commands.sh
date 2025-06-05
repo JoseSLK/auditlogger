@@ -3,10 +3,10 @@ CRITICAL_CMDS=("sudo" "su" "chmod" "chown" "rm" "wget" "curl" "scp" "ftp" "dd" "
 generate_freq_report() {
     INPUT_FILE="$1"
     ALERT_FILE="$2"
-    echo "Iniciando análisis de frecuencia de comandos..."
+
 
     if [[ ! -f "$INPUT_FILE" ]]; then
-        echo "Archivo de frecuencia no encontrado: $INPUT_FILE"
+        echo "Frequency File not found!: $INPUT_FILE"
         return 1
     fi
 

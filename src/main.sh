@@ -41,7 +41,7 @@ while true; do
 
             users=($(awk -F: '($3 >= 1000) && ($7 !~ /(nologin|false)$/) {print $1}' /etc/passwd))
             opts=( "All" "${users[@]}" "Go Back")
-            hist_sel=$(gum choose --header "Select you option for Command history review" --height 15 "${opts[@]}")
+            hist_sel=$(gum choose --header "Select you option for Command history review" --height 30 "${opts[@]}")
             if [[ ${hist_sel} == "All" ]]; then
                 history_log
             elif [[ ${hist_sel} != "Go Back" ]]; then 
@@ -54,7 +54,7 @@ while true; do
         "Active Sessions")
             users=($(awk -F: '($3 >= 1000) && ($7 !~ /(nologin|false)$/) {print $1}' /etc/passwd))
             opts=( "All" "${users[@]}" "Go Back")
-            hist_sel=$(gum choose --header "Select you option for Session history review" --height 15 "${opts[@]}")
+            hist_sel=$(gum choose --header "Select you option for Session history review" --height 30 "${opts[@]}")
             if [[ ${hist_sel} == "All" ]]; then
                session 
             elif [[ ${hist_sel} != "Go Back" ]]; then 
@@ -66,7 +66,7 @@ while true; do
         "Command Analysis")
             users=($(awk -F: '($3 >= 1000) && ($7 !~ /(nologin|false)$/) {print $1}' /etc/passwd))
             opts=( "Overall Users" "${users[@]}" "Go Back")
-            hist_sel=$(gum choose --header "Select you option for Command Analysis  review" --height 15 "${opts[@]}")
+            hist_sel=$(gum choose --header "Select you option for Command Analysis  review" --height 30 "${opts[@]}")
             if [[ ${hist_sel} == "Overall Users" ]]; then
                freqency 
             elif [[ ${hist_sel} != "Go Back" ]]; then 
@@ -85,6 +85,7 @@ while true; do
             loc=
             log=$(gum file ${PATH_TO_LOGS})
             gum pager < ${log}
+            continue
             ;;
         "Exit")
             gum confirm && break || :
