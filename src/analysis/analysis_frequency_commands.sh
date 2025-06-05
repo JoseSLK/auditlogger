@@ -1,11 +1,8 @@
-#!/bin/bash
-
-INPUT_FILE="./logs/frequency_commands.log"
-ALERT_FILE="./logs/frequency_analysis_alerts.log"
-
 CRITICAL_CMDS=("sudo" "su" "chmod" "chown" "rm" "wget" "curl" "scp" "ftp" "dd" "kill" "pkill")
 
-generate_report() {
+generate_freq_report() {
+    INPUT_FILE="$1"
+    ALERT_FILE="$2"
     echo "Iniciando análisis de frecuencia de comandos..."
 
     if [[ ! -f "$INPUT_FILE" ]]; then
@@ -14,7 +11,7 @@ generate_report() {
     fi
 
     mkdir -p "$(dirname "$ALERT_FILE")"
-    echo "Análisis de Frecuencia de Comandos" > "$ALERT_FILE"
+    echo "Command Frequency Report" > "$ALERT_FILE"
     echo "" >> "$ALERT_FILE"
 
     local total_commands
@@ -24,11 +21,11 @@ generate_report() {
     local top_count
     top_count=$(head -n 1 "$INPUT_FILE" | awk '{print $1}')
 
-    echo "Total de comandos analizados: $total_commands" >> "$ALERT_FILE"
-    echo "Comando más usado: $top_command ($top_count veces)" >> "$ALERT_FILE"
+    echo "Total Anlyzed Commands: $total_commands" >> "$ALERT_FILE"
+    echo "Most Used Command: $top_command ($top_count times)" >> "$ALERT_FILE"
     echo "" >> "$ALERT_FILE"
 
-    echo "Posibles Comandos Críticos Detectados" >> "$ALERT_FILE"
+    echo "Possible Critic Commands detected" >> "$ALERT_FILE"
 
     while read -r line; do
         local count
@@ -38,19 +35,15 @@ generate_report() {
 
         for critical in "${CRITICAL_CMDS[@]}"; do
             if [[ "$cmd" == "$critical" ]]; then
-                echo "Uso de un comando crítico '$cmd': $count veces" >> "$ALERT_FILE"
+                echo "Use of a Critic Command '$cmd': $count times" >> "$ALERT_FILE"
             fi
         done
 
         if (( count > total_commands / 2 )); then
-            echo "El comando '$cmd' representa más del 50% del uso total." >> "$ALERT_FILE"
+            echo "The command '$cmd' is more than 50% of total use." >> "$ALERT_FILE"
         fi
     done < "$INPUT_FILE"
 
     echo "" >> "$ALERT_FILE"
-    echo "Análisis guardado en: $ALERT_FILE"
-    cat "$ALERT_FILE"
+    echo "Report stored at: $ALERT_FILE"
 }
-
-generate_report "$1"
-

@@ -1,13 +1,14 @@
 #!/bin/bash
 
 LOG_DIR="/var/log/audit_frequent_errors"
-ERROR_LOG="$LOG_DIR/error_$(date +%F).log"
-REPORT="$LOG_DIR/report_$(date +%F).log"
+ERROR_LOG="$LOG_DIR/error.log"
+LOG_OUTPUT="/var/log/audit/report"
+REPORT="$LOG_OUTPUT/report_error_$(date +%F).log"
 
 declare -a COMMON_COMMANDS=("ls" "cd" "mkdir" "rm" "cp" "mv" "cat" "nano" "vim" "grep" "find" "ps" "top" "kill" "touch" "echo")
 
 classify_types_errors() {
-    echo "## Tipos de error más comunes:"
+    echo "## Most Common Errors:"
 
     grep "Error message:" "$ERROR_LOG" | awk -F"Error message: " '{print $2}' |
         sed -e "s/$(echo -ne '\047')//g" \
@@ -25,25 +26,25 @@ classify_types_errors() {
 }
 
 count_use_specific_commands() {
-    echo "## Errores por comandos específicos:"
+    echo "## Errors by common commands:"
 
     for cmd in "${COMMON_COMMANDS[@]}"; do
         count=$(grep "Command: '$cmd" "$ERROR_LOG" | wc -l)
         if [ $count -gt 0 ]; then
-            echo "      $count errores con el comando '$cmd'"
+            echo "      $count errors with command '$cmd'"
         fi
     done
     echo ""
 }
 
 list_users_with_errors() {
-    echo "## Usuarios con más errores:"
+    echo "## Users with more errors:"
     grep "Command:" "$ERROR_LOG" | awk -F"User: " '{print $2}' | awk '{print $1}' | sort | uniq -c | sort -nr
     echo ""
 }
 
 count_untracked_commands() {
-    echo "## Comandos desconocidos (no reconocidos en lista blanca):"
+    echo "## Unknown Commands( Not in the while list):"
 
     cut -d "'" -f2 "$ERROR_LOG" | while read -r command; do
 
@@ -67,8 +68,8 @@ count_untracked_commands() {
 }
 
 generate_report() {
-    echo "# Informe de Errores Frecuentes" >"$REPORT"
-    echo "Generado el: $(date)" >>"$REPORT"
+    echo "# Frequent Common Errors Report" >"$REPORT"
+    echo "Genearted on: $(date)" >>"$REPORT"
     echo "" >>"$REPORT"
 
     classify_types_errors >>"$REPORT"
@@ -76,5 +77,5 @@ generate_report() {
     count_untracked_commands >>"$REPORT"
     list_users_with_errors >>"$REPORT"
 
-    echo "Informe generado en: $REPORT"
+    echo "Reported store on: $REPORT"
 }

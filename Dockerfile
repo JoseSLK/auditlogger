@@ -12,8 +12,7 @@ RUN mkdir /var/run/sshd
 
 #COPY frequent_errors.sh /etc/profile.d/frequent_errors.sh
 
-COPY setup/ /usr/local/bin/
-COPY src/ /usr/local/bin/
+COPY . /usr/local/bin/auditlogger
 
 
 # COPY analysis_frecuent_errors.sh /usr/local/bin/analysis_frecuent_errors.sh

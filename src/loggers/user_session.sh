@@ -2,8 +2,6 @@
 
 LOGFILE="/var/log/audit/users/${USER}_session.log"
 
-
-
 function session_log {
     DATE=$(date +"%Y-%m-%d %H:%M:%S")
     TTY=$(tty)
@@ -14,5 +12,6 @@ if [[ $- == *i* ]]; then
     session_log "login"
 fi
 
+trap 'session_log logout' EXIT
 
-trap 'session_log logout' EXIT 
+
